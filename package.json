@@ -2,10 +2,10 @@
   "name": "shinyokohama-bot",
   "version": "0.0.1",
   "description": "shinyokohama bot",
-  "main": "src/bot.js",
+  "main": "bot.js",
   "scripts": {
-    "test": "eslint *.js",
-    "watch": "esw *.js --watch",
+    "test": "eslint *.js libs/*.js",
+    "watch": "esw *.js libs/*.js --watch",
     "start": "babel-node bot.js"
   },
   "keywords": [

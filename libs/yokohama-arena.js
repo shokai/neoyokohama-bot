@@ -8,7 +8,7 @@ const debug = require("debug")("bot:yokohama-arena");
 export default class YokohamaArena{
 
   constructor(){
-    this.base_url = "http://www.yokohama-arena.co.jp"
+    this.url = "http://www.yokohama-arena.co.jp"
 
     this.getSchedule = co.wrap(function *(){
       const html = yield this.getHtml();
@@ -16,20 +16,12 @@ export default class YokohamaArena{
       debug(schedule);
       return schedule;
     });
-
-    this.getToday = co.wrap(function *(){
-      const schedule = yield this.getSchedule();
-      if(this.isScheduleToday(schedule)){
-        return schedule;
-      }
-      return null;
-    });
   }
 
   getHtml(){
     return new Promise((resolve, reject) => {
       request
-        .get(this.base_url)
+        .get(this.url)
         .end((err, res) => {
           if(err) return reject(err);
           return resolve(res.text);
@@ -51,18 +43,13 @@ export default class YokohamaArena{
     };
   }
 
-  isScheduleToday(schedule){
-    const today = new Date();
-    return today.getFullYear() === schedule.year &&
-      today.getMonth() === schedule.month &&
-      today.getDate() === schedule.date;
-  }
-
 };
 
 if(process.argv[1] === __filename){
   const arena = new YokohamaArena();
   co(function *(){
     console.log(yield arena.getSchedule());
-  }).catch(console.error);
+  }).catch((err) => {
+    console.error(err.stack)
+  });
 }

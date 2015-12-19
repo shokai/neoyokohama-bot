@@ -10,7 +10,7 @@ export default class YokohamaArena{
   constructor(){
     this.url = "http://www.yokohama-arena.co.jp"
 
-    this.getSchedule = co.wrap(function *(){
+    this.getScheduleToday = co.wrap(function *(){
       const html = yield this.getHtml();
       const schedule = this.parseHtml(html);
       debug(schedule);
@@ -19,6 +19,7 @@ export default class YokohamaArena{
   }
 
   getHtml(){
+    debug(`get ${this.url}`);
     return new Promise((resolve, reject) => {
       request
         .get(this.url)
@@ -39,7 +40,8 @@ export default class YokohamaArena{
       year: year,
       month: month,
       date: date,
-      title: title
+      title: title,
+      where: "横浜アリーナ"
     };
   }
 

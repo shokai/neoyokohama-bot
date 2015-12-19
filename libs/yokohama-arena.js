@@ -37,11 +37,11 @@ export default class YokohamaArena{
     const date  = $("div#main-today .day").text() - 0;
     const title = $("div#main-today h3").text();
     return {
+      title: title,
+      where: "横浜アリーナ",
       year: year,
       month: month,
-      date: date,
-      title: title,
-      where: "横浜アリーナ"
+      date: date
     };
   }
 
@@ -50,7 +50,7 @@ export default class YokohamaArena{
 if(process.argv[1] === __filename){
   const arena = new YokohamaArena();
   co(function *(){
-    console.log(yield arena.getSchedule());
+    console.log(yield arena.getScheduleToday());
   }).catch((err) => {
     console.error(err.stack)
   });

@@ -52,7 +52,13 @@ export default class NissanStadium{
       case 3:
         let where = $(el).text().trim() || null;
         if(title){
-          let schedule = { where: where, title: title, year: year, month: month, date: date };
+          let schedule = {
+            title: title,
+            where: where,
+            year: year,
+            month: month,
+            date: date
+          };
           debug(schedule);
           schedules.push(schedule);
           title = null;

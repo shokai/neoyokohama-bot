@@ -2,22 +2,27 @@
 
 import co from "co";
 
+import util from "./libs/util"
 import YokohamaArena from "./libs/yokohama-arena"
 const arena = new YokohamaArena();
-import util from "./libs/util"
+import NissanStadium from "./libs/nissan-stadium"
+const nissan = new NissanStadium();
+
 
 co(function *(){
 
-  const schedules = yield {arena: arena.getSchedule()};
+  const schedules = yield {
+    arena: [arena.getScheduleToday()],
+    nissan: nissan.getMajorSchedules()
+  };
+  const events_today = [];
   for(let where in schedules){
-    let schedule = schedules[where];
-    if(util.isScheduleToday(schedule)){
-      console.log(`${where} is today`);
+    for(let schedule of schedules[where]){
+      if(util.isScheduleToday(schedule)){
+        events_today.push(schedule);
+      }
     }
-    else{
-      console.log(`${where} is not today`);
-    }
-    console.log(schedule);
   }
+  console.log(events_today);
 
 }).catch(console.error);

@@ -16,6 +16,11 @@ export default class NissanStadium{
       debug(schedules);
       return schedules;
     });
+
+    this.getMajorSchedules = co.wrap(function *(){
+      const schedules = yield this.getSchedules();
+      return schedules.filter((i) => { return /(スタジアム|競技場)/.test(i.where) });
+    });
   }
 
   getHtml(){

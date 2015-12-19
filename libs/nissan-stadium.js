@@ -3,7 +3,7 @@
 import co from "co";
 import request from "superagent";
 import cheerio from "cheerio"
-const debug = require("debug")("bot:NissanStadium");
+const debug = require("debug")("bot:nissan-stadium");
 
 export default class NissanStadium{
 

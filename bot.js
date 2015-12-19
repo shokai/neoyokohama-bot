@@ -34,4 +34,6 @@ co(function *(){
   const result = yield twitterClient.update(tweetText);
   console.log(result);
 
-}).catch(console.error);
+}).catch((err) => {
+  console.error(err.stack);
+});

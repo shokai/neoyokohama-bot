@@ -12,7 +12,7 @@ const nissan = new NissanStadium();
 co(function *(){
 
   const schedules = yield {
-    arena: [arena.getScheduleToday()],
+    arena: [arena.getTodaySchedule()],
     nissan: nissan.getMajorSchedules()
   };
   const events_today = [];

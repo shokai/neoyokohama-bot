@@ -10,7 +10,7 @@ export default class YokohamaArena{
   constructor(){
     this.url = "http://www.yokohama-arena.co.jp"
 
-    this.getScheduleToday = co.wrap(function *(){
+    this.getTodaySchedule = co.wrap(function *(){
       const html = yield this.getHtml();
       const schedule = this.parseHtml(html);
       debug(schedule);
@@ -50,7 +50,7 @@ export default class YokohamaArena{
 if(process.argv[1] === __filename){
   const arena = new YokohamaArena();
   co(function *(){
-    console.log(yield arena.getScheduleToday());
+    console.log(yield arena.getTodaySchedule());
   }).catch((err) => {
     console.error(err.stack)
   });

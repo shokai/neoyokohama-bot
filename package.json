@@ -2,11 +2,15 @@
   "name": "shinyokohama-bot",
   "version": "0.0.1",
   "description": "shinyokohama bot",
-  "main": "bot.js",
+  "engines": {
+    "node": ">= 5.2.0"
+  },
+  "main": "src/main.es6",
   "scripts": {
-    "test": "eslint *.js libs/*.js",
-    "watch": "esw *.js libs/*.js --watch",
-    "start": "babel-node bot.js"
+    "test": "eslint *.es6 src/*.es6",
+    "watch": "esw *.es6 src/*.es6 --watch",
+    "start": "node run.js",
+    "build": "zip bundle.zip run.js .env src/* node_modules/*"
   },
   "keywords": [
     "bot"
@@ -15,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.3.17",
+    "babel-polyfill": "^6.3.14",
     "babel-preset-es2015": "^6.3.13",
     "cheerio": "^0.19.0",
     "co": "^4.6.0",

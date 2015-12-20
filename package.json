@@ -1,7 +1,7 @@
 {
-  "name": "shinyokohama-bot",
+  "name": "neoyokohama-bot",
   "version": "0.0.1",
-  "description": "shinyokohama bot",
+  "description": "neoyokohama bot",
   "engines": {
     "node": ">= 5.2.0"
   },

@@ -24,8 +24,6 @@ edit `.env` file
 ## Deploy to AWS Lambda
 
     % npm run build
-    # or
-    % npm run build -- --debug
 
-generate `bundle.js`
+generate `bundle.zip`
 

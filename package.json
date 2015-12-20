@@ -10,7 +10,7 @@
     "test": "eslint *.es6 src/*.es6",
     "watch": "esw *.es6 src/*.es6 --watch",
     "start": "node run.js",
-    "build": "zip bundle.zip run.js .env src/* node_modules/*"
+    "build": "zip -r bundle.zip run.js .env src/ node_modules/"
   },
   "keywords": [
     "bot"

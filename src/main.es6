@@ -11,7 +11,7 @@ import NissanStadium from "./nissan-stadium"
 const nissan = new NissanStadium();
 import twitterClient from "./twitter-client"
 
-module.exports.handler = function(event, context){
+module.exports.handler = function(_event, _context){
   co(function *(){
 
     const schedules = yield {
@@ -35,9 +35,10 @@ module.exports.handler = function(event, context){
     debug(tweetText);
     const result = yield twitterClient.update(tweetText);
     console.log(result);
-
+    if(_context) _context.done(null, "done");
   }).catch((err) => {
-    console.error(err.stack);
+    console.error(err.stack || err);
+    if(_context) _context.fail('failed');
   });
 }
 

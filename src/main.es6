@@ -29,7 +29,7 @@ module.exports.handler = function(_event, _context){
 
     let msgs = [ "本日のイベントは" ];
     msgs = msgs.concat(
-      events_today.map((event) => { return `${event.title}(${event.where})`})
+      events_today.map((event) => { return `${event.where} : ${event.title}`})
     );
     const tweetText = msgs.join("\n");
     debug(tweetText);

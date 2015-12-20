@@ -1,5 +1,6 @@
 # shinyokohama-bot
 
+- https://twitter.com/neoyokohama
 - https://github.com/shokai/shinyokohama-bot
 
 [![Circle CI](https://circleci.com/gh/shokai/shinyokohama-bot.svg?style=svg)](https://circleci.com/gh/shokai/shinyokohama-bot)

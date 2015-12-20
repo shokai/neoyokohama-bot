@@ -5,12 +5,12 @@
   "engines": {
     "node": ">= 5.2.0"
   },
-  "main": "src/main.es6",
+  "main": "index.js",
   "scripts": {
     "test": "eslint *.es6 src/*.es6",
     "watch": "esw *.es6 src/*.es6 --watch",
-    "start": "node run.js",
-    "build": "zip -r bundle.zip run.js .env src/ node_modules/"
+    "start": "node index.js",
+    "build": "zip -r bundle.zip index.js .env src/ node_modules/"
   },
   "keywords": [
     "bot"

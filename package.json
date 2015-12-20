@@ -8,9 +8,10 @@
   "main": "index.js",
   "scripts": {
     "test": "eslint *.es6 src/*.es6",
-    "watch": "esw *.es6 src/*.es6 --watch",
+    "watch": "parallelshell 'npm run build -- --watch' 'esw *.es6 src/*.es6 --watch'",
     "start": "node index.js",
-    "build": "zip -r bundle.zip index.js .env src/ node_modules/"
+    "build": "babel src/ --out-dir dist/ --source-maps inline",
+    "zip": "zip -r bundle.zip index.js .env dist/ node_modules/"
   },
   "keywords": [
     "bot"
@@ -32,6 +33,7 @@
   "devDependencies": {
     "babel-eslint": "^4.1.6",
     "eslint": "^1.10.3",
-    "eslint-watch": "^2.1.4"
+    "eslint-watch": "^2.1.4",
+    "parallelshell": "^2.0.0"
   }
 }

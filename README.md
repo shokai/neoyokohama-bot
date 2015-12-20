@@ -18,12 +18,16 @@ edit `.env` file
 
 ## Run
 
+    % npm run build
+    # or
+    % npm run watch
+
     % DEBUG=bot* node run.js
 
 
 ## Deploy to AWS Lambda
 
-    % npm run build
+    % npm run zip
 
 generate `bundle.zip`
 

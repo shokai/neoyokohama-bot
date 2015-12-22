@@ -27,13 +27,16 @@ module.exports.handler = function(_event, _context){
       }
     }
 
-    let msgs = [ "本日のイベントは" ];
+    if(events_today.length < 1){
+      const tweetText = `${util.getDateString()}日 本日は特に何もありません`;
+    }
+
+    let msgs = [ `${util.getDateString()}のイベントは` ];
     msgs = msgs.concat(
       events_today.map((event) => { return `${event.where} : ${event.title}`})
     );
     const tweetText = msgs.join("\n");
     debug(tweetText);
-    if(process.env.DRY) return;
     const result = yield twitterClient.update(tweetText);
     console.log(result);
     if(_context) _context.done(null, "done");

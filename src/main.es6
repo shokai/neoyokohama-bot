@@ -31,7 +31,7 @@ module.exports.handler = function(_event, _context){
       const tweetText = `${util.getDateString()}日 本日は特に何もありません`;
     }
 
-    let msgs = [ `${util.getDateString()}のイベントは` ];
+    let msgs = [ `新横浜 ${util.getDateString()}のイベントは` ];
     msgs = msgs.concat(
       events_today.map((event) => { return `${event.where} : ${event.title}`})
     );

@@ -23,8 +23,11 @@ edit `.env` file
     # or
     % npm run watch
 
-    % DEBUG=bot* node run.js
+    % npm start
 
+### Dry Run
+
+    % DRY=true npm start
 
 ## Deploy to AWS Lambda
 

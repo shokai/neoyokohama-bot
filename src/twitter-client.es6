@@ -18,6 +18,7 @@ export default {
   update: function(text){
     debug(`update tweet "${text}"`);
     return new Promise((resolve, reject) => {
+      if(process.env.DRY) return resolve("dry-run");
       client.post("statuses/update", {status: text}, (err, tweet, response) => {
         if(err) return reject(err);
         return resolve(tweet);

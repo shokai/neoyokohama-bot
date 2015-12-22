@@ -33,6 +33,7 @@ module.exports.handler = function(_event, _context){
     );
     const tweetText = msgs.join("\n");
     debug(tweetText);
+    if(process.env.DRY) return;
     const result = yield twitterClient.update(tweetText);
     console.log(result);
     if(_context) _context.done(null, "done");

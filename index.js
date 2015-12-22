@@ -1,6 +1,7 @@
 "use strict";
 
 if(!process.env.DEBUG) process.env.DEBUG = "bot*";
+process.env.TZ = "Asia/Tokyo";
 
 var bot = require("./dist/main");
 module.exports.handler = bot.handler;

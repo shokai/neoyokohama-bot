@@ -1,6 +1,7 @@
 "use strict";
 
 require("babel-polyfill");
+require("date-utils");
 const debug = require("debug")("bot");
 import co from "co";
 
@@ -27,15 +28,17 @@ module.exports.handler = function(_event, _context){
       }
     }
 
+    let tweetText;
     if(events_today.length < 1){
-      const tweetText = `${util.getDateString()}日 本日は特に何もありません`;
+      tweetText = `新横浜 ${new Date().toFormat("MM月DD日")} 本日は特に何もありません`;
     }
-
-    let msgs = [ `新横浜 ${util.getDateString()}のイベントは` ];
-    msgs = msgs.concat(
-      events_today.map((event) => { return `${event.where} : ${event.title}`})
-    );
-    const tweetText = msgs.join("\n");
+    else{
+      let msgs = [ `新横浜 ${new Date().toFormat("MM月DD日")}のイベントは` ];
+      msgs = msgs.concat(
+        events_today.map((event) => { return `${event.where} : ${event.title}`})
+      );
+      tweetText = msgs.join("\n");
+    }
     debug(tweetText);
     const result = yield twitterClient.update(tweetText);
     console.log(result);

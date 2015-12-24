@@ -7,12 +7,14 @@
   },
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "mocha": "mocha test/test_*.es6 --compilers js:babel-register",
     "eslint": "eslint *.es6 src/*.es6 test/*.es6",
     "test": "npm run eslint && npm run mocha",
-    "watch": "parallelshell 'npm run build -- --watch' 'esw *.es6 src/*.es6 --watch'",
-    "start": "node index.js",
+    "test:watch": "chokidar '(src|test)/*.es6' -c 'npm run test'",
     "build": "babel src/ --out-dir dist/ --source-maps inline",
+    "build:watch": "npm run build --watch",
+    "watch": "parallelshell 'npm run build:watch' 'npm run test:watch'",
     "zip": "zip -r bundle.zip index.js .env dist/ node_modules/"
   },
   "keywords": [
@@ -35,8 +37,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^4.1.6",
+    "chokidar-cli": "^1.2.0",
     "eslint": "^1.10.3",
-    "eslint-watch": "^2.1.4",
     "mocha": "^2.3.4",
     "parallelshell": "^2.0.0"
   }

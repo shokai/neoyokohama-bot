@@ -19,7 +19,7 @@ export default {
     debug(`update tweet "${text}"`);
     return new Promise((resolve, reject) => {
       if(process.env.DRY) return resolve("dry-run");
-      client.post("statuses/update", {status: text}, (err, tweet, response) => {
+      client.post("statuses/update", {status: text}, (err, tweet, res) => {
         if(err) return reject(err);
         return resolve(tweet);
       });
@@ -29,7 +29,7 @@ export default {
 }
 
 if(process.argv[1] === __filename){
-  client.post("statuses/update", {status: "test"}, (err, tweet, response) => {
+  client.post("statuses/update", {status: "test"}, (err, tweet, res) => {
     if(err) return cosnole.error(err);
     console.log(tweet);
   });

@@ -1,8 +1,8 @@
 "use strict";
 
-import helper from "./test_helper";
+import "./test_helper";
 import assert from "assert";
-import util from "../src/util";
+import "../src/util";
 
 describe("Date polyfill", function(){
 

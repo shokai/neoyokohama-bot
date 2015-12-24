@@ -1,11 +1,11 @@
 "use strict";
 
-require("babel-polyfill");
-require("date-utils");
+import "babel-polyfill";
+import "date-utils";
 const debug = require("debug")("bot");
 import co from "co";
 
-import util from "./util"
+import "./util";
 import YokohamaArena from "./yokohama-arena"
 const arena = new YokohamaArena();
 import NissanStadium from "./nissan-stadium"

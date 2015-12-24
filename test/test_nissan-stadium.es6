@@ -1,6 +1,6 @@
 "use strict";
 
-import helper from "./test_helper";
+import "./test_helper";
 import assert from "assert";
 import NissanStadium from "../src/nissan-stadium";
 import Event from "../src/event";

@@ -7,7 +7,9 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "eslint *.es6 src/*.es6",
+    "mocha": "mocha test/test_*.es6 --compilers js:babel-register",
+    "eslint": "eslint *.es6 src/*.es6 test/*.es6",
+    "test": "npm run eslint && npm run mocha",
     "watch": "parallelshell 'npm run build -- --watch' 'esw *.es6 src/*.es6 --watch'",
     "start": "node index.js",
     "build": "babel src/ --out-dir dist/ --source-maps inline",
@@ -35,6 +37,7 @@
     "babel-eslint": "^4.1.6",
     "eslint": "^1.10.3",
     "eslint-watch": "^2.1.4",
+    "mocha": "^2.3.4",
     "parallelshell": "^2.0.0"
   }
 }

@@ -3,27 +3,26 @@
 import helper from "./test_helper";
 import assert from "assert";
 import NissanStadium from "../src/nissan-stadium";
+import Event from "../src/event";
 
 
 describe("crawler NissanStadium", function(){
 
   const nissan = new NissanStadium();
 
-  it("should have method \"getMajorSchedules\"", function(){
-    assert.equal(typeof nissan["getMajorSchedules"], "function");
+  it("should have method \"getMajorEvents\"", function(){
+    assert.equal(typeof nissan["getMajorEvents"], "function");
   });
 
-  describe("method \"getMajorSchedules\"", function(){
+  describe("method \"getMajorEvents\"", function(){
 
-    it("should return Array", function(done){
+    it("should return Event Array", function(done){
       this.timeout(10000);
       nissan
-        .getMajorSchedules()
-        .then((schedules) => {
-          assert.equal(schedules instanceof Array, true);
-          assert.equal(typeof schedules[0].title, "string");
-          assert.equal(typeof schedules[0].where, "string");
-          assert.equal(schedules[0].date instanceof Date, true);
+        .getMajorEvents()
+        .then((events) => {
+          assert.equal(events instanceof Array, true);
+          assert.equal(events[0] instanceof Event, true);
           done();
         });
 

@@ -3,6 +3,7 @@
 import co from "co";
 import request from "superagent";
 import cheerio from "cheerio"
+import Event from "./event"
 const debug = require("debug")("bot:nissan-stadium");
 
 export default class NissanStadium{
@@ -10,16 +11,16 @@ export default class NissanStadium{
   constructor(){
     this.url = "http://www.nissan-stadium.jp/calendar/index.php";
 
-    this.getSchedules = co.wrap(function *(){
+    this.getEvents = co.wrap(function *(){
       const html = yield this.getHtml();
-      const schedules = this.parseHtml(html);
-      debug(schedules);
-      return schedules;
+      const events = this.parseHtml(html);
+      debug(events);
+      return events;
     });
 
-    this.getMajorSchedules = co.wrap(function *(){
-      const schedules = yield this.getSchedules();
-      return schedules.filter((i) => { return /(スタジアム|競技場)/.test(i.where) });
+    this.getMajorEvents = co.wrap(function *(){
+      const events = yield this.getEvents();
+      return events.filter((i) => { return /(スタジアム|競技場)/.test(i.where) });
     });
   }
 
@@ -44,7 +45,7 @@ export default class NissanStadium{
     const year  = m[1] - 0;
     const month = m[2] - 0;
     const tds = $("#areacontents01 table td");
-    const schedules = [];
+    const events = [];
     let date, title;
     tds.each((i, el) => {
       switch(i % 4){
@@ -57,23 +58,21 @@ export default class NissanStadium{
       case 3:
         let where = $(el).text().trim() || null;
         if(title){
-          let _date = new Date(0);
-          _date.setYear(year);
-          _date.setMonth(month - 1);
-          _date.setDate(date);
-          let schedule = {
+          let event = new Event({
             title: title,
             where: where,
-            date: _date
-          };
-          debug(schedule);
-          schedules.push(schedule);
+          });
+          event.date.setYear(year);
+          event.date.setMonth(month - 1);
+          event.date.setDate(date);
+          debug(event);
+          events.push(event);
           title = null;
         }
         break;
       }
     });
-    return schedules;
+    return events;
   }
 
 }
@@ -81,7 +80,7 @@ export default class NissanStadium{
 if(process.argv[1] === __filename){
   const nissan = new NissanStadium();
   co(function *(){
-    console.log(yield nissan.getSchedules());
+    console.log(yield nissan.getEvents());
   }).catch((err) => {
     console.error(err.stack);
   });

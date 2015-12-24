@@ -15,15 +15,15 @@ import twitterClient from "./twitter-client"
 module.exports.handler = function(_event, _context){
   co(function *(){
 
-    const schedules = yield {
-      arena: [arena.getTodaySchedule()],
-      nissan: nissan.getMajorSchedules()
+    const events = yield {
+      arena: [arena.getTodayEvent()],
+      nissan: nissan.getMajorEvents()
     };
     const events_today = [];
-    for(let where in schedules){
-      for(let schedule of schedules[where]){
-        if(schedule.date.isToday()){
-          events_today.push(schedule);
+    for(let where in events){
+      for(let event of events[where]){
+        if(event.date.isToday()){
+          events_today.push(event);
         }
       }
     }

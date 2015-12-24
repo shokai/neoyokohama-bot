@@ -3,6 +3,7 @@
 import co from "co";
 import request from "superagent";
 import cheerio from "cheerio";
+import Event from "./event";
 const debug = require("debug")("bot:yokohama-arena");
 
 export default class YokohamaArena{
@@ -10,11 +11,11 @@ export default class YokohamaArena{
   constructor(){
     this.url = "http://www.yokohama-arena.co.jp"
 
-    this.getTodaySchedule = co.wrap(function *(){
+    this.getTodayEvent = co.wrap(function *(){
       const html = yield this.getHtml();
-      const schedule = this.parseHtml(html);
-      debug(schedule);
-      return schedule;
+      const event = this.parseHtml(html);
+      debug(event);
+      return event;
     });
   }
 
@@ -32,16 +33,12 @@ export default class YokohamaArena{
 
   parseHtml(html){
     const $ = cheerio.load(html);
-    let date = new Date(0);
-    date.setYear($("div#main-today .year").text() - 0);
-    date.setMonth($("div#main-today .month").text() - 1);
-    date.setDate($("div#main-today .day").text() - 0);
     const title = $("div#main-today h3").text();
-    return {
-      title: title,
-      where: "横浜アリーナ",
-      date: date
-    };
+    let event = new Event({title: title, where: "横浜アリーナ"});
+    event.date.setYear($("div#main-today .year").text() - 0);
+    event.date.setMonth($("div#main-today .month").text() - 1);
+    event.date.setDate($("div#main-today .day").text() - 0);
+    return event;
   }
 
 };
@@ -49,7 +46,7 @@ export default class YokohamaArena{
 if(process.argv[1] === __filename){
   const arena = new YokohamaArena();
   co(function *(){
-    console.log(yield arena.getTodaySchedule());
+    console.log(yield arena.getTodayEvent());
   }).catch((err) => {
     console.error(err.stack)
   });

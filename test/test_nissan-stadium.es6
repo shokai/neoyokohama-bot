@@ -16,6 +16,7 @@ describe("crawler NissanStadium", function(){
   describe("method \"getMajorSchedules\"", function(){
 
     it("should return Array", function(done){
+      this.timeout(10000);
       nissan
         .getMajorSchedules()
         .then((schedules) => {

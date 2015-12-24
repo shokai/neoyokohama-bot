@@ -57,12 +57,14 @@ export default class NissanStadium{
       case 3:
         let where = $(el).text().trim() || null;
         if(title){
+          let _date = new Date(0);
+          _date.setYear(year);
+          _date.setMonth(month - 1);
+          _date.setDate(date);
           let schedule = {
             title: title,
             where: where,
-            year: year,
-            month: month,
-            date: date
+            date: _date
           };
           debug(schedule);
           schedules.push(schedule);

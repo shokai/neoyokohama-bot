@@ -21,6 +21,9 @@ describe("crawler NissanStadium", function(){
         .getMajorSchedules()
         .then((schedules) => {
           assert.equal(schedules instanceof Array, true);
+          assert.equal(typeof schedules[0].title, "string");
+          assert.equal(typeof schedules[0].where, "string");
+          assert.equal(schedules[0].date instanceof Date, true);
           done();
         });
 

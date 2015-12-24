@@ -32,15 +32,14 @@ export default class YokohamaArena{
 
   parseHtml(html){
     const $ = cheerio.load(html);
-    const year  = $("div#main-today .year").text() - 0;
-    const month = $("div#main-today .month").text() - 0;
-    const date  = $("div#main-today .day").text() - 0;
+    let date = new Date(0);
+    date.setYear($("div#main-today .year").text() - 0);
+    date.setMonth($("div#main-today .month").text() - 1);
+    date.setDate($("div#main-today .day").text() - 0);
     const title = $("div#main-today h3").text();
     return {
       title: title,
       where: "横浜アリーナ",
-      year: year,
-      month: month,
       date: date
     };
   }

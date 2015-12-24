@@ -22,7 +22,7 @@ module.exports.handler = function(_event, _context){
     const events_today = [];
     for(let where in schedules){
       for(let schedule of schedules[where]){
-        if(util.isScheduleToday(schedule)){
+        if(schedule.date.isToday()){
           events_today.push(schedule);
         }
       }

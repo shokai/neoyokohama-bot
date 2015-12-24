@@ -21,9 +21,7 @@ describe("crawler YokohamaArena", function(){
         .then((schedule) => {
           assert.equal(typeof schedule.title, "string");
           assert.equal(typeof schedule.where, "string");
-          assert.equal(typeof schedule.year, "number");
-          assert.equal(typeof schedule.month, "number");
-          assert.equal(typeof schedule.date, "number");
+          assert.equal(schedule.date instanceof Date, true);
           done();
         });
 

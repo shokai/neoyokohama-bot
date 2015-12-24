@@ -15,6 +15,7 @@ describe("crawler YokohamaArena", function(){
   describe("method \"getTodaySchedule\"", function(){
 
     it("should return schedule", function(done){
+      this.timeout(10000);
       arena
         .getTodaySchedule()
         .then((schedule) => {

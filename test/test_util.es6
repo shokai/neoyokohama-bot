@@ -2,8 +2,7 @@
 
 import helper from "./test_helper";
 import assert from "assert";
-import NissanStadium from "../src/util";
-
+import util from "../src/util";
 
 describe("Date polyfill", function(){
 

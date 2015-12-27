@@ -9,18 +9,19 @@ describe("crawler YokohamaArena", function(){
 
   const arena = new YokohamaArena();
 
-  it("should have method \"getTodayEvent\"", function(){
-    assert.equal(typeof arena["getTodayEvent"], "function");
+  it("should have method \"getMajorEvents\"", function(){
+    assert.equal(typeof arena["getMajorEvents"], "function");
   });
 
-  describe("method \"getTodayEvent\"", function(){
+  describe("method \"getMajorEvent\"", function(){
 
-    it("should return event", function(done){
+    it("should return Event Array", function(done){
       this.timeout(10000);
       arena
-        .getTodayEvent()
-        .then((event) => {
-          assert.equal(event instanceof Event, true);
+        .getMajorEvents()
+        .then((events) => {
+          assert.equal(events instanceof Array, true);
+          assert.equal(events[0] instanceof Event, true);
           done();
         });
 

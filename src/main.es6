@@ -42,15 +42,15 @@ module.exports.handler = function(_event, _context){
       tweetText = msgs.join("\n");
     }
     debug(tweetText);
-    let res = yield {
-      tweet: twitterClient.update({status: tweetText}),
-      forecast: weather.getForecast()
-    };
+    let [tweet, forecast] = yield [
+      twitterClient.update({status: tweetText}),
+      weather.getForecast()
+    ];
 
-    tweetText = `${new Date().toFormat("MM月DD日")}の天気は ${res.forecast}`
-    res = yield twitterClient.update({
+    tweetText = `${new Date().toFormat("MM月DD日")}の天気は ${forecast}`
+    yield twitterClient.update({
       status: tweetText,
-      in_reply_to_status_id: res.tweet.id
+      in_reply_to_status_id: tweet.id
     });
 
     if(_context) _context.done(null, "done");

@@ -6,6 +6,8 @@ const debug = require("debug")("bot");
 import co from "co";
 
 import "./util";
+import Weather from "./weather";
+const weather = new Weather();
 import YokohamaArena from "./yokohama-arena"
 const arena = new YokohamaArena();
 import NissanStadium from "./nissan-stadium"
@@ -28,7 +30,7 @@ module.exports.handler = function(_event, _context){
       }
     }
 
-    let tweetText;
+    let tweetText = "";
     if(events_today.length < 1){
       tweetText = `新横浜 ${new Date().toFormat("MM月DD日")} 本日は特に何もありません`;
     }
@@ -40,8 +42,17 @@ module.exports.handler = function(_event, _context){
       tweetText = msgs.join("\n");
     }
     debug(tweetText);
-    const result = yield twitterClient.update(tweetText);
-    console.log(result);
+    let res = yield {
+      tweet: twitterClient.update({status: tweetText}),
+      forecast: weather.getForecast()
+    };
+
+    tweetText = `${new Date().toFormat("MM月DD日")}の天気は ${res.forecast}`
+    res = yield twitterClient.update({
+      status: tweetText,
+      in_reply_to_status_id: res.tweet.id
+    });
+
     if(_context) _context.done(null, "done");
   }).catch((err) => {
     console.error(err.stack || err);

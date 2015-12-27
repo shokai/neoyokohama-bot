@@ -15,12 +15,13 @@ export default {
 
   client: client,
 
-  update: function(text){
-    debug(`update tweet "${text}"`);
+  update: function(params){
+    debug(`update tweet "${params.status}"`);
     return new Promise((resolve, reject) => {
       if(process.env.DRY) return resolve("dry-run");
-      client.post("statuses/update", {status: text}, (err, tweet, res) => {
+      client.post("statuses/update", params, (err, tweet, res) => {
         if(err) return reject(err);
+        debug(`update: https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`);
         return resolve(tweet);
       });
     });

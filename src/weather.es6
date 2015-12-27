@@ -30,8 +30,7 @@ export default class Weather{
 
   parseHtml(html){
     const $ = cheerio.load(html);
-    const td = $("table.forecast td")[0];
-    return $(td).text();
+    return $("table.forecast td").eq(0).text();
   }
 
 }

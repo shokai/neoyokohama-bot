@@ -8,5 +8,11 @@ Date.prototype.isToday = function(){
 };
 
 export default {
-
+  delay: function(msec){
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, msec);
+    });
+  }
 }

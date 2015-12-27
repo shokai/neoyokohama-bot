@@ -6,7 +6,7 @@ import cheerio from "cheerio";
 import Event from "./event";
 const debug = require("debug")("bot:yokohama-arena");
 
-export default class YokohamaArena{
+export default new class YokohamaArena{
 
   constructor(){
     this.url = "http://www.yokohama-arena.co.jp/event/"

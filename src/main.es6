@@ -1,17 +1,14 @@
 "use strict";
 
-import "babel-polyfill";
-import "date-utils";
+import "babel-polyfill"
+import "date-utils"
 const debug = require("debug")("bot");
-import co from "co";
+import co from "co"
 
-import "./util";
-import Weather from "./weather";
-const weather = new Weather();
-import YokohamaArena from "./yokohama-arena"
-const arena = new YokohamaArena();
-import NissanStadium from "./nissan-stadium"
-const nissan = new NissanStadium();
+import "./util"
+import weather from "./weather"
+import arena from "./yokohama-arena"
+import nissan from "./nissan-stadium"
 import twitterClient from "./twitter-client"
 
 module.exports.handler = function(_event, _context){

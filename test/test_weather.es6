@@ -2,11 +2,9 @@
 
 import "./test_helper";
 import assert from "assert";
-import Weather from "../src/weather";
+import weather from "../src/weather";
 
 describe("crawler Weather", function(){
-
-  const weather = new Weather();
 
   if("should have method \"getForecast\"", function(){
     assert.equal(typeof weather["getForecast"], "function");

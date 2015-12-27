@@ -2,13 +2,11 @@
 
 import "./test_helper";
 import assert from "assert";
-import NissanStadium from "../src/nissan-stadium";
+import nissan from "../src/nissan-stadium";
 import Event from "../src/event";
 
 
 describe("crawler NissanStadium", function(){
-
-  const nissan = new NissanStadium();
 
   it("should have method \"getMajorEvents\"", function(){
     assert.equal(typeof nissan["getMajorEvents"], "function");

@@ -2,12 +2,10 @@
 
 import "./test_helper";
 import assert from "assert";
-import YokohamaArena from "../src/yokohama-arena";
+import arena from "../src/yokohama-arena";
 import Event from "../src/event";
 
 describe("crawler YokohamaArena", function(){
-
-  const arena = new YokohamaArena();
 
   it("should have method \"getMajorEvents\"", function(){
     assert.equal(typeof arena["getMajorEvents"], "function");

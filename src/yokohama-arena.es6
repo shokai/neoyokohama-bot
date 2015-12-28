@@ -6,7 +6,7 @@ import cheerio from "cheerio";
 import Event from "./event";
 const debug = require("debug")("bot:yokohama-arena");
 
-export default new class YokohamaArena{
+class YokohamaArena{
 
   constructor(){
     this.url = "http://www.yokohama-arena.co.jp/event/"
@@ -14,7 +14,6 @@ export default new class YokohamaArena{
     this.getEvents = co.wrap(function *(){
       const html = yield this.getHtml();
       const event = this.parseHtml(html);
-      debug(event);
       return event;
     });
 
@@ -43,13 +42,14 @@ export default new class YokohamaArena{
     const month = $(".month").eq(0).text() - 0;
     const tds = $("table#event-cal td");
     const events = [];
-    let date, title;
+    let date;
     tds.each((i, el) => {
       switch(i % 6){
       case 0:
         date = Number.parseInt($(el).text());
         break;
       case 1:
+        let title;
         if(title = $(el).text().trim()){
           let event = new Event({
             title: title,
@@ -58,6 +58,7 @@ export default new class YokohamaArena{
           event.date.setYear(year);
           event.date.setMonth(month - 1);
           event.date.setDate(date);
+          debug(event);
           events.push(event);
           title = null;
         }
@@ -72,6 +73,8 @@ export default new class YokohamaArena{
   }
 
 };
+
+export default new YokohamaArena;
 
 if(process.argv[1] === __filename){
   const arena = new YokohamaArena();

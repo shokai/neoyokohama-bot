@@ -6,7 +6,7 @@ import cheerio from "cheerio"
 import Event from "./event"
 const debug = require("debug")("bot:nissan-stadium");
 
-export default new class NissanStadium{
+class NissanStadium{
 
   constructor(){
     this.url = "http://www.nissan-stadium.jp/calendar/index.php";
@@ -14,7 +14,6 @@ export default new class NissanStadium{
     this.getEvents = co.wrap(function *(){
       const html = yield this.getHtml();
       const events = this.parseHtml(html);
-      debug(events);
       return events;
     });
 
@@ -76,6 +75,8 @@ export default new class NissanStadium{
   }
 
 }
+
+export default new NissanStadium;
 
 if(process.argv[1] === __filename){
   const nissan = new NissanStadium();

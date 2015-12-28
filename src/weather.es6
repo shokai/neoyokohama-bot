@@ -5,7 +5,7 @@ import request from "superagent";
 import cheerio from "cheerio";
 const debug = require("debug")("bot:weather");
 
-export default new class Weather{
+class Weather{
 
   constructor(){
     this.url = "http://www.jma.go.jp/jp/yoho/320.html";
@@ -34,6 +34,8 @@ export default new class Weather{
   }
 
 }
+
+export default new Weather;
 
 
 if(process.argv[1] === __filename){

@@ -12,7 +12,9 @@ class Weather{
 
     this.getForecast = co.wrap(function *(){
       const html = yield this.getHtml();
-      return this.parseHtml(html);
+      const forecast = this.parseHtml(html);
+      debug(forecast);
+      return forecast;
     });
   }
 
@@ -29,8 +31,8 @@ class Weather{
   }
 
   parseHtml(html){
-    const $ = cheerio.load(html);
-    return $("table.forecast td").eq(0).text();
+    const $ = cheerio.load(html, {decodeEntities: false});
+    return $("table.forecast td.info").eq(0).html().replace(/(<br>|　)/g, ' ');
   }
 
 }
@@ -43,5 +45,7 @@ if(process.argv[1] === __filename){
   co(function *(){
     const forecast = yield weather.getForecast();
     console.log(forecast);
+  }).catch(err => {
+    console.error(err.stack || err);
   });
 }

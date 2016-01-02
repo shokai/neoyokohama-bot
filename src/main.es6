@@ -29,10 +29,10 @@ module.exports.handler = function(_event, _context){
 
     let tweetText = "";
     if(events_today.length < 1){
-      tweetText = `新横浜 ${new Date().toFormat("MM月DD日")} 本日は特に何もありません`;
+      tweetText = `新横浜 ${new Date().toFormat("M月D日")} 本日は特に何もありません`;
     }
     else{
-      let msgs = [ `新横浜 ${new Date().toFormat("MM月DD日")}のイベントは` ];
+      let msgs = [ `新横浜 ${new Date().toFormat("M月D日")}のイベントは` ];
       msgs = msgs.concat(
         events_today.map((event) => { return `${event.where} : ${event.title}`})
       );
@@ -44,7 +44,7 @@ module.exports.handler = function(_event, _context){
       weather.getForecast()
     ];
 
-    tweetText = `${new Date().toFormat("MM月DD日")}の天気は ${forecast}`
+    tweetText = `${new Date().toFormat("M月D日")}の天気は ${forecast}`
     yield twitterClient.update({
       status: tweetText,
       in_reply_to_status_id: tweet.id

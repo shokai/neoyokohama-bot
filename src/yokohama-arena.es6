@@ -15,8 +15,8 @@ class YokohamaArena{
   getEvents(){
     return co.wrap(function *(){
       const html = yield this.getHtml();
-      const event = this.parseHtml(html);
-      return event;
+      const events = this.parseHtml(html);
+      return events;
     }).call(this);
   }
 

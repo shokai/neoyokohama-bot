@@ -10,17 +10,20 @@ class NissanStadium{
 
   constructor(){
     this.url = "http://www.nissan-stadium.jp/calendar/index.php";
+  }
 
-    this.getEvents = co.wrap(function *(){
+  getEvents(){
+    return co.wrap(function *(){
       const html = yield this.getHtml();
-      const events = this.parseHtml(html);
-      return events;
-    });
+      return this.parseHtml(html);
+    }).call(this);
+  }
 
-    this.getMajorEvents = co.wrap(function *(){
+  getMajorEvents(){
+    return co.wrap(function *(){
       const events = yield this.getEvents();
       return events.filter((i) => { return /(スタジアム|競技場)/.test(i.where) });
-    });
+    }).call(this);
   }
 
   getHtml(){

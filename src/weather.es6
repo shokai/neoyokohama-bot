@@ -9,13 +9,15 @@ class Weather{
 
   constructor(){
     this.url = "http://www.jma.go.jp/jp/yoho/320.html";
+  }
 
-    this.getForecast = co.wrap(function *(){
+  getForecast(){
+    return co.wrap(function *(){
       const html = yield this.getHtml();
       const forecast = this.parseHtml(html);
       debug(forecast);
       return forecast;
-    });
+    }).call(this);
   }
 
   getHtml(){

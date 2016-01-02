@@ -10,17 +10,21 @@ class YokohamaArena{
 
   constructor(){
     this.url = "http://www.yokohama-arena.co.jp/event/"
+  }
 
-    this.getEvents = co.wrap(function *(){
+  getEvents(){
+    return co.wrap(function *(){
       const html = yield this.getHtml();
       const event = this.parseHtml(html);
       return event;
-    });
+    }).call(this);
+  }
 
-    this.getMajorEvents = co.wrap(function *(){
+  getMajorEvents(){
+    return co.wrap(function *(){
       const events = yield this.getEvents();
       return events.filter((i) => { return !(/設営日/.test(i.title)) });
-    });
+    }).call(this);
   }
 
   getHtml(){

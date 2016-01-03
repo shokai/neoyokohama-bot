@@ -1,7 +1,7 @@
 "use strict";
 
 import co from "co";
-import request from "superagent";
+import superagent from "superagent";
 import cheerio from "cheerio";
 const debug = require("debug")("bot:weather");
 
@@ -23,7 +23,7 @@ class Weather{
   getHtml(){
     debug(`get ${this.url}`);
     return new Promise((resolve, reject) => {
-      request
+      superagent
         .get(this.url)
         .end((err, res) =>{
           if(err) return reject(err);

@@ -56,7 +56,3 @@ module.exports.handler = function(_event, _context){
     if(_context) _context.fail('failed');
   });
 }
-
-if(process.argv[1] === __filename){
-  module.exports.handler();
-}

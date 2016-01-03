@@ -39,7 +39,7 @@ module.exports.handler = function(_event, _context){
       tweetText = msgs.join("\n");
     }
     debug(tweetText);
-    let [tweet, forecast] = yield [
+    const [tweet, forecast] = yield [
       twitterClient.update({status: tweetText}),
       weather.getForecast()
     ];

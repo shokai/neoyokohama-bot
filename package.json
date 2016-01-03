@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node run.js",
     "mocha": "mocha test/test_*.es6 --compilers js:babel-register",
     "eslint": "eslint *.es6 src/*.es6 test/*.es6",
     "test": "npm run eslint && npm run mocha",

@@ -40,36 +40,44 @@ class YokohamaArena{
   }
 
   parseHtml(html){
-    const $ = cheerio.load(html);
+    const $ = cheerio.load(html, {decodeEntities: false});
     const year = $(".year").eq(0).text() - 0;
-    debug(year);
     const month = $(".month").eq(0).text() - 0;
     const tds = $("table#event-cal td");
     const events = [];
-    let date;
+    let event;
     tds.each((i, el) => {
       switch(i % 6){
       case 0:
-        date = Number.parseInt($(el).text());
+        event = null;
+        const date = Number.parseInt($(el).text());
+        if(!date) break;
+        event = new Event();
+        event.date.setYear(year);
+        event.date.setMonth(month - 1);
+        event.date.setDate(date);
         break;
       case 1:
-        let title;
-        if(title = $(el).text().trim()){
-          let event = new Event({
-            title: title,
-            where: "横浜アリーナ"
-          });
-          event.date.setYear(year);
-          event.date.setMonth(month - 1);
-          event.date.setDate(date);
-          debug(event);
-          events.push(event);
-          title = null;
-        }
+        if(!event) break;
+        const title = $(el).text().trim();
+        if(!title) break;
+        event.set({title: title, where: "横浜アリーナ"});
         break;
       case 2:
+        if(!event) break;
+        const openAt = $(el).html().trim().replace(/<br>/g, " ");
+        if(!openAt) break;
+        event.note += `開場${openAt}`
         break;
       case 3:
+        if(!event) break;
+        const startAt = $(el).html().trim().replace(/<br>/g, " ");
+        if(startAt){
+          event.note += ` 開演${startAt}`
+        }
+        if(!event.title) break;
+        events.push(event);
+        debug(event);
         break;
       }
     });

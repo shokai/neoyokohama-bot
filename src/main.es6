@@ -34,7 +34,11 @@ module.exports.handler = function(_event, _context){
     else{
       let msgs = [ `新横浜 ${new Date().toFormat("M月D日")}のイベントは` ];
       msgs = msgs.concat(
-        events_today.map((event) => { return `${event.where} : ${event.title}`})
+        events_today.map((event) => {
+          let text = `${event.where} : ${event.title}`;
+          if(event.note) text += " " + event.note;
+          return text;
+        })
       );
       tweetText = msgs.join("\n");
     }

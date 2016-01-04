@@ -35,3 +35,7 @@ edit `.env` file
 
 generate `bundle.zip`
 
+
+## Note
+
+- [橋本商会 » 新横浜Twitter botをAWS Lambdaとcoで作った](http://shokai.org/blog/archives/10465)

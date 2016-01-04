@@ -16,7 +16,7 @@ module.exports.handler = function(_event, _context){
 
     const events = yield {
       arena: arena.getMajorEvents(),
-      nissan: nissan.getMajorEvents()
+      nissan: nissan.getEvents()
     };
     const events_today = [];
     for(let where in events){

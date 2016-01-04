@@ -20,5 +20,9 @@ export default class Event{
       if(!(params.date instanceof Date)) throw "invalid date";
       this.date = params.date;
     }
+    if(params.note){
+      if(typeof params.note !== "string") throw "invalid note";
+      this.note = params.note;
+    }
   }
 }

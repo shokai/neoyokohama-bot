@@ -2,8 +2,8 @@
 
 import co from "co";
 import superagent from "superagent";
-import cheerio from "cheerio"
-import Event from "./event"
+import cheerio from "cheerio";
+import Event from "./event";
 const debug = require("debug")("bot:nissan-stadium");
 
 class NissanStadium{

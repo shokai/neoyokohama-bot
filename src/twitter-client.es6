@@ -12,6 +12,12 @@ const client = new Twitter({
   access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
+const ignoreUsers = [
+    /yokohama/i,
+    /sh?inyoko/i,
+    /sh?inkansen/i
+];
+
 export default {
 
   client: client,
@@ -50,6 +56,9 @@ export default {
       });
       const now = new Date();
       const congestion = tweets.statuses.filter((tw) => {
+        for(let ignore of ignoreUsers){
+          if(ignore.test(tw.user.screen_name)) return false;
+        }
         return (now - Date.parse(tw.created_at))/1000 < 60*60;
       }).length;
       debug(`congestion: ${congestion}`);

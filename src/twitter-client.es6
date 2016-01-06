@@ -2,6 +2,7 @@
 
 require("dotenv").load({silent: true});
 const debug = require("debug")("bot:twitter-client");
+import co from "co";
 import Twitter from "twitter";
 
 const client = new Twitter({
@@ -25,6 +26,35 @@ export default {
         return resolve(tweet);
       });
     });
+  },
+
+  search: function(params){
+    debug(`search tweets by word "${params.q}"`);
+    return new Promise((resolve, reject) => {
+      if(!params.q) return reject("invalid query");
+      client.get("search/tweets", params, (err, tweets, res) =>{
+        if(err) return reject(err);
+        debug(`${tweets.statuses.length} tweets found`);
+        return resolve(tweets);
+      })
+    });
+  },
+
+  searchCongestion: function(word){
+    debug(`search congestion: ${word}`);
+    return co.wrap(function *(){
+      const tweets = yield this.search({
+        q: word,
+        count: 100,
+        include_entities: false
+      });
+      const now = new Date();
+      const congestion = tweets.statuses.filter((tw) => {
+        return (now - Date.parse(tw.created_at))/1000 < 60*60;
+      }).length;
+      debug(`congestion: ${congestion}`);
+      return congestion;
+    }).call(this);
   }
 
 }

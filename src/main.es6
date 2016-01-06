@@ -14,13 +14,18 @@ import twitterClient from "./twitter-client";
 module.exports.handler = function(_event, _context){
   co(function *(){
 
-    const events = yield {
-      arena: arena.getMajorEvents(),
-      nissan: nissan.getEvents()
+    const data = yield {
+      events: {
+        arena: arena.getMajorEvents(),
+        nissan: nissan.getEvents()
+      },
+      twitter: {
+        congestion: twitterClient.searchCongestion("新横浜")
+      }
     };
     const events_today = [];
-    for(let where in events){
-      for(let event of events[where]){
+    for(let where in data.events){
+      for(let event of data.events[where]){
         if(event.date.isToday()){
           events_today.push(event);
         }
@@ -42,6 +47,7 @@ module.exports.handler = function(_event, _context){
       );
       tweetText = msgs.join("\n");
     }
+    tweetText += `\n予想混雑度 : ${data.twitter.congestion}`
     debug(tweetText);
     const [tweet, forecast] = yield [
       twitterClient.update({status: tweetText}),

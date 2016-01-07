@@ -23,7 +23,7 @@ export default {
   client: client,
 
   update: function(params){
-    debug(`update tweet "${params.status}"`);
+    debug(`update tweet "${params.status}" (${params.status.length} chars)`);
     return new Promise((resolve, reject) => {
       if(process.env.DRY) return resolve("dry-run");
       client.post("statuses/update", params, (err, tweet, res) => {

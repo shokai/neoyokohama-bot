@@ -8,7 +8,7 @@ const debug = require("debug")("bot:weather");
 class Weather{
 
   constructor(){
-    this.url = "http://www.jma.go.jp/jp/yoho/320.html";
+    this.url = "http://weather.yahoo.co.jp/weather/jp/14/4610.html";
   }
 
   getForecast(){
@@ -33,8 +33,17 @@ class Weather{
   }
 
   parseHtml(html){
-    const $ = cheerio.load(html, {decodeEntities: false});
-    return $("table.forecast td.info").eq(0).html().replace(/(<br>|　)/g, ' ');
+    const $ = cheerio.load(html);
+    const text = $(".forecastCity .pict").eq(0).text();
+    const temp_high = $(".forecastCity .temp .high em").eq(0).text() - 0;
+    const temp_low = $(".forecastCity .temp .low em").eq(0).text() - 0;
+    return {
+      text: text,
+      temperature: {
+        high: temp_high,
+        low: temp_low
+      }
+    }
   }
 
 }

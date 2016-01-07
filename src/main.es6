@@ -54,7 +54,7 @@ module.exports.handler = function(_event, _context){
       weather.getForecast()
     ];
 
-    tweetText = `${new Date().toFormat("M月D日")}の天気は ${forecast}`
+    tweetText = `${new Date().toFormat("M月D日")}の天気は ${forecast.text} 気温${forecast.temperature.high}〜${forecast.temperature.low}度`
     yield twitterClient.update({
       status: tweetText,
       in_reply_to_status_id: tweet.id

@@ -11,9 +11,8 @@ import arena from "./yokohama-arena";
 import nissan from "./nissan-stadium";
 import twitterClient from "./twitter-client";
 
-module.exports.handler = function(_event, _context){
-  co(function *(){
-
+function tweetEventInfo(){
+  return co(function *(){
     const data = yield {
       events: {
         arena: arena.getMajorEvents(),
@@ -49,16 +48,25 @@ module.exports.handler = function(_event, _context){
     }
     tweetText += `\n予想混雑度 : ${data.twitter.congestion}`
     debug(tweetText);
-    const [tweet, forecast] = yield [
-      twitterClient.update({status: tweetText}),
-      weather.getForecast()
-    ];
+    return twitterClient.update({status: tweetText});
+  });
+}
 
-    tweetText = `${new Date().toFormat("M月D日")}の天気は ${forecast.text} 気温${forecast.temperature.high}〜${forecast.temperature.low}度`
-    yield twitterClient.update({
-      status: tweetText,
-      in_reply_to_status_id: tweet.id
-    });
+function tweetWeatherForecast(){
+  return co(function *(){
+    const forecast = yield weather.getForecast();
+    let tweetText = `新横浜 ${new Date().toFormat("M月D日")}の天気は ${forecast.text} 気温${forecast.temperature.high}度〜${forecast.temperature.low}度`
+    return twitterClient.update({status: tweetText});
+  });
+}
+
+module.exports.handler = function(_event, _context){
+  co(function *(){
+    const res = yield {
+      event: tweetEventInfo(),
+      weather: tweetWeatherForecast()
+    };
+    console.log(res);
 
     if(_context) _context.done(null, "done");
   }).catch((err) => {

@@ -23,17 +23,21 @@ edit `.env` file
     # or
     % npm run watch
 
+    % DRY=true npm start  # dry-run
     % npm start
 
-### Dry Run
-
-    % DRY=true npm start
 
 ## Deploy to AWS Lambda
 
     % npm run zip
 
 generate `bundle.zip`
+
+
+## Test
+
+    % npm test
+    % DEBUG=bot* npm test
 
 
 ## Note

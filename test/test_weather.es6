@@ -12,16 +12,15 @@ describe("crawler Weather", function(){
 
   describe("method \"getForecast\"", function(){
 
-    it("should return forecast", function(done){
+    it("should return forecast", function(){
       this.timeout(10000);
-      weather
+      return weather
         .getForecast()
         .then((forecast) => {
           assert.equal(typeof forecast.text, "string");
           assert.equal(typeof forecast.temperature.high, "number");
           assert.equal(typeof forecast.temperature.low, "number");
           assert.equal(forecast.temperature.high >= forecast.temperature.low, true);
-          done();
         });
     });
 

@@ -14,17 +14,16 @@ describe("crawler NissanStadium", function(){
 
   describe("method \"getMajorEvents\"", function(){
 
-    it("should return Event Array", function(done){
+    it("should return Event Array", function(){
       this.timeout(10000);
-      nissan
+      return nissan
         .getMajorEvents()
         .then((events) => {
           assert.equal(events instanceof Array, true);
           assert.equal(events[0] instanceof Event, true);
-          done();
         });
-
     });
+
   });
 
 });

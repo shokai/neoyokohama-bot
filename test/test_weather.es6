@@ -6,7 +6,7 @@ import weather from "../src/weather";
 
 describe("crawler Weather", function(){
 
-  if("should have method \"getForecast\"", function(){
+  it("should have method \"getForecast\"", function(){
     assert.equal(typeof weather["getForecast"], "function");
   });
 

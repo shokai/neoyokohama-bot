@@ -75,10 +75,3 @@ export default {
   }
 
 }
-
-if(process.argv[1] === __filename){
-  client.post("statuses/update", {status: "test"}, (err, tweet, res) => {
-    if(err) return cosnole.error(err);
-    console.log(tweet);
-  });
-}

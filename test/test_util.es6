@@ -10,7 +10,7 @@ describe("Date polyfill", function(){
 
     it("should return true if today", function(){
       const date = new Date();
-      assert.equal(date.isToday(), true);
+      assert(date.isToday());
     });
 
     it("should return false if 1900", function(){

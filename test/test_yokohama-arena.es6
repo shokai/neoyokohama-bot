@@ -18,8 +18,8 @@ describe("crawler YokohamaArena", function(){
       return arena
         .getMajorEvents()
         .then((events) => {
-          assert.equal(events instanceof Array, true);
-          assert.equal(events[0] instanceof Event, true);
+          assert(events instanceof Array);
+          assert(events[0] instanceof Event);
         });
 
     });

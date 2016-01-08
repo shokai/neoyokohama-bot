@@ -21,6 +21,6 @@ describe("class Event", function(){
   });
 
   it("should be today", function(){
-    assert.equal(event.date.isToday(), true);
+    assert(event.date.isToday());
   });
 });

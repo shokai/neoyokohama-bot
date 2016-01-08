@@ -15,7 +15,14 @@ const client = new Twitter({
 const ignoreUsers = [
     /yokohama/i,
     /sh?inyoko/i,
-    /sh?inkansen/i
+    /sh?inkansen/i,
+    /railway/i,
+    /kikuna/i,
+    /bot/i,
+    /deli/i,
+    /kanto/i,
+    /新横浜/,
+    /新幹線/
 ];
 
 export default {
@@ -58,6 +65,7 @@ export default {
       const congestion = tweets.statuses.filter((tw) => {
         for(let ignore of ignoreUsers){
           if(ignore.test(tw.user.screen_name)) return false;
+          if(ignore.test(tw.user.name)) return false;
         }
         return (now - Date.parse(tw.created_at))/1000 < 60*60;
       }).length;

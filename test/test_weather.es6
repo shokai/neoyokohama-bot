@@ -17,7 +17,7 @@ describe("crawler Weather", function(){
       return weather
         .getForecast()
         .then((forecast) => {
-          assert.equal(typeof forecast.text, "string");
+          assert.equal(/[晴雨曇雪]/.test(forecast.text), true);
           assert.equal(typeof forecast.temperature.high, "number");
           assert.equal(typeof forecast.temperature.low, "number");
           assert.equal(forecast.temperature.high >= forecast.temperature.low, true);

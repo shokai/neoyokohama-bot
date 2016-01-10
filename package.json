@@ -39,7 +39,7 @@
     "babel-eslint": "^4.1.6",
     "chokidar-cli": "^1.2.0",
     "eslint": "^1.10.3",
-    "eslint-plugin-if-in-test": "^0.1.0",
+    "eslint-plugin-if-in-test": "^0.1.1",
     "mocha": "^2.3.4",
     "parallelshell": "^2.0.0"
   }

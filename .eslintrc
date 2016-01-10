@@ -1,4 +1,5 @@
 {
+  "extends": "eslint:recommended",
   "parser": "babel-eslint",
   "env":{
     "node": true,
@@ -17,6 +18,8 @@
     "no-loop-func": 0,
     "curly": 0,
     "if-in-test/if": [2, {"directory": "test"}],
-    "no-constant-condition": 1
+    "no-constant-condition": 1,
+    "no-console": 0,
+    "no-undef": 1
   }
 }

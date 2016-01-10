@@ -84,7 +84,7 @@ class YokohamaArena{
     return events;
   }
 
-};
+}
 
 export default new YokohamaArena;
 

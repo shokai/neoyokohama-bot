@@ -62,7 +62,7 @@ class NissanStadium{
         if(title){
           let event = new Event({
             title: title,
-            where: where,
+            where: where
           });
           event.date.setYear(year);
           event.date.setMonth(month - 1);

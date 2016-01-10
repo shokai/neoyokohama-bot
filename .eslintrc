@@ -16,6 +16,7 @@
     "no-shadow": 0,
     "no-loop-func": 0,
     "curly": 0,
-    "if-in-test/if": [2, {"directory": "test"}]
+    "if-in-test/if": [2, {"directory": "test"}],
+    "no-constant-condition": 1
   }
 }

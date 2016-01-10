@@ -48,14 +48,16 @@ function tweetEventInfo(){
     }
     tweetText += `\n予想混雑度 : ${data.twitter.congestion}`
     debug(tweetText);
-    return twitterClient.update({status: tweetText});
+    return tweetText.split140chars().map((status) => {
+      return twitterClient.update({status: status});
+    });
   });
 }
 
 function tweetWeatherForecast(){
   return co(function *(){
     const forecast = yield weather.getForecast();
-    let tweetText = `新横浜 ${new Date().toFormat("M月D日")}の天気は ${forecast.text} 気温${forecast.temperature.high}度〜${forecast.temperature.low}度`
+    let tweetText = `新横浜 ${new Date().toFormat("M月D日")}の天気は ${forecast.text} 気温${forecast.temperature.high}度〜${forecast.temperature.low}度`;
     return twitterClient.update({status: tweetText});
   });
 }

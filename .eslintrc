@@ -19,7 +19,6 @@
     "curly": 0,
     "if-in-test/if": [2, {"directory": "test"}],
     "no-constant-condition": 1,
-    "no-console": 0,
-    "no-undef": 1
+    "no-console": 0
   }
 }

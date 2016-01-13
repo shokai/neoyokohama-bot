@@ -11,8 +11,8 @@ import arena from "./yokohama-arena";
 import nissan from "./nissan-stadium";
 import twitterClient from "./twitter-client";
 
-function tweetEventInfo(){
-  return co(function *(){
+module.exports.handler = function(_event, _context){
+  co(function *(){
     const data = yield {
       events: {
         arena: arena.getMajorEvents(),
@@ -20,7 +20,8 @@ function tweetEventInfo(){
       },
       twitter: {
         congestion: twitterClient.searchCongestion("新横浜")
-      }
+      },
+      forecast: weather.getForecast()
     };
     const events_today = [];
     for(let where in data.events){
@@ -39,35 +40,22 @@ function tweetEventInfo(){
       let msgs = [ `新横浜 ${new Date().toFormat("M月D日")}のイベントは` ];
       msgs = msgs.concat(
         events_today.map((event) => {
-          let text = `${event.where} : ${event.title}`;
+          let text = `${event.where} ${event.title}`;
           if(event.note) text += " " + event.note;
           return text;
         })
       );
       tweetText = msgs.join("\n");
     }
-    tweetText += `\n予想混雑度 : ${data.twitter.congestion}`
+    tweetText += `\n予想混雑度 ${data.twitter.congestion}`
+
+    tweetText += `\n天気 ${data.forecast.text} 気温${data.forecast.temperature.high}度〜${data.forecast.temperature.low}度`;
+
     debug(tweetText);
-    return tweetText.split140chars().map((status) => {
+    const res = yield tweetText.split140chars().map((status) => {
       return twitterClient.update({status: status});
     });
-  });
-}
 
-function tweetWeatherForecast(){
-  return co(function *(){
-    const forecast = yield weather.getForecast();
-    let tweetText = `新横浜 ${new Date().toFormat("M月D日")}の天気は ${forecast.text} 気温${forecast.temperature.high}度〜${forecast.temperature.low}度`;
-    return twitterClient.update({status: tweetText});
-  });
-}
-
-module.exports.handler = function(_event, _context){
-  co(function *(){
-    const res = yield {
-      event: tweetEventInfo(),
-      weather: tweetWeatherForecast()
-    };
     console.log(res);
 
     if(_context) _context.done(null, "done");

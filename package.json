@@ -14,7 +14,7 @@
     "test": "npm run eslint && npm run mocha",
     "build": "babel src/ --out-dir dist/ --source-maps inline",
     "watch": "parallelshell 'npm run build -- --watch' 'chokidar \"(src|test)/*.es6\" -c \"npm run eslint\"'",
-    "zip": "zip -r bundle.zip index.js .env dist/ node_modules/"
+    "zip": "rm bundle.zip; zip -r bundle.zip index.js .env dist/ node_modules/"
   },
   "keywords": [
     "bot"

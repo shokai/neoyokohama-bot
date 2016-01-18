@@ -7,6 +7,10 @@ Date.prototype.isToday = function(){
     this.getDate() === today.getDate();
 };
 
+Date.prototype.getDayJP = function(){
+  return "日月火水木金土"[this.getDay()];
+};
+
 String.prototype.split140chars = function(){
   const results = [ "" ];
   for(let line of this.split(/[\r\n]/)){

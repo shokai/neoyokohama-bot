@@ -32,7 +32,8 @@ module.exports.handler = function(_event, _context){
       }
     }
 
-    let tweetText = `新横浜 ${new Date().toFormat("M月D日")} ${data.forecast.today.text} 気温${data.forecast.today.temperature.low}度〜${data.forecast.today.temperature.high}度`;
+    var today = new Date();
+    let tweetText = `新横浜 ${today.toFormat("M/D")}(${today.getDayJP()}) ${data.forecast.today.text} 気温${data.forecast.today.temperature.low}度〜${data.forecast.today.temperature.high}度`;
     if(events_today.length < 1){
       tweetText += `\n本日は特に何もありません`;
     }

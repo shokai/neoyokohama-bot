@@ -48,7 +48,7 @@ class NissanStadium{
     const month = m[2] - 0;
     const tds = $("#areacontents01 table td");
     const events = [];
-    let date, title;
+    var date, title;
     tds.each((i, el) => {
       switch(i % 4){
       case 0:

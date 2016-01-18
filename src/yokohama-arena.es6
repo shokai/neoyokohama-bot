@@ -45,7 +45,7 @@ class YokohamaArena{
     const month = $(".month").eq(0).text() - 0;
     const tds = $("table#event-cal td");
     const events = [];
-    let event;
+    var event;
     tds.each((i, el) => {
       switch(i % 6){
       case 0:

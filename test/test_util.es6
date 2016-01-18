@@ -15,7 +15,7 @@ describe("Date polyfill", function(){
     });
 
     it("should return false if 1900", function(){
-      let date = new Date(0);
+      var date = new Date(0);
       date.setYear(1900);
       assert.equal(date.isToday(), false);
     });

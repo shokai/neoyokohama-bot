@@ -4,9 +4,9 @@ import "babel-polyfill";
 import "date-utils";
 const debug = require("debug")("bot");
 import co from "co";
+import {forecast} from "weather-yahoo-jp";
 
 import "./util";
-import weather from "./weather";
 import arena from "./yokohama-arena";
 import nissan from "./nissan-stadium";
 import twitterClient from "./twitter-client";
@@ -21,7 +21,7 @@ module.exports.handler = function(_event, _context){
       twitter: {
         congestion: twitterClient.searchCongestion("新横浜")
       },
-      forecast: weather.getForecast()
+      forecast: forecast.get("横浜")
     };
     const events_today = [];
     for(let where in data.events){
@@ -32,7 +32,7 @@ module.exports.handler = function(_event, _context){
       }
     }
 
-    let tweetText = `新横浜 ${new Date().toFormat("M月D日")} ${data.forecast.text} 気温${data.forecast.temperature.low}度〜${data.forecast.temperature.high}度`;
+    let tweetText = `新横浜 ${new Date().toFormat("M月D日")} ${data.forecast.today.text} 気温${data.forecast.today.temperature.low}度〜${data.forecast.today.temperature.high}度`;
     if(events_today.length < 1){
       tweetText += `\n本日は特に何もありません`;
     }

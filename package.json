@@ -31,7 +31,6 @@
     "date-utils": "^1.2.17",
     "debug": "^2.2.0",
     "dotenv": "^1.2.0",
-    "lodash": "^3.10.1",
     "superagent": "^1.6.1",
     "twitter": "^1.2.5",
     "weather-yahoo-jp": "^0.2.0"

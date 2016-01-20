@@ -41,8 +41,8 @@ class YokohamaArena{
 
   parseHtml(html){
     const $ = cheerio.load(html, {decodeEntities: false});
-    const year = $(".year").eq(0).text() - 0;
-    const month = $(".month").eq(0).text() - 0;
+    const year = parseInt($("#event-header .year").eq(0).text());
+    const month = parseInt($("#event-header .month").eq(0).text());
     const tds = $("table#event-cal td");
     const events = [];
     var event;
@@ -50,12 +50,10 @@ class YokohamaArena{
       switch(i % 6){
       case 0:
         event = null;
-        const date = Number.parseInt($(el).text());
+        const date = parseInt($(el).text());
         if(!date) break;
         event = new Event();
-        event.date.setYear(year);
-        event.date.setMonth(month - 1);
-        event.date.setDate(date);
+        event.date = new Date(year, month - 1, date);
         break;
       case 1:
         if(!event) break;

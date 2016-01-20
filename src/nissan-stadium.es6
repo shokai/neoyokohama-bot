@@ -64,9 +64,7 @@ class NissanStadium{
             title: title,
             where: where
           });
-          event.date.setYear(year);
-          event.date.setMonth(month - 1);
-          event.date.setDate(date);
+          event.date = new Date(year, month - 1, date);
           debug(event);
           events.push(event);
           title = null;

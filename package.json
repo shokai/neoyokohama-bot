@@ -30,10 +30,10 @@
     "co": "^4.6.0",
     "date-utils": "^1.2.17",
     "debug": "^2.2.0",
-    "dotenv": "^1.2.0",
+    "dotenv": "^2.0.0",
     "superagent": "^1.6.1",
     "twitter": "^1.2.5",
-    "weather-yahoo-jp": "^0.2.0"
+    "weather-yahoo-jp": "^0.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.6",

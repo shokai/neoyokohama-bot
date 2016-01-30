@@ -1,7 +1,7 @@
 "use strict";
 
 import co from "co";
-import superagent from "superagent";
+import axios from "axios";
 import cheerio from "cheerio";
 import Event from "./event";
 const debug = require("debug")("bot:yokohama-arena");
@@ -29,14 +29,11 @@ class YokohamaArena{
 
   getHtml(){
     debug(`get ${this.url}`);
-    return new Promise((resolve, reject) => {
-      superagent
-        .get(this.url)
-        .end((err, res) => {
-          if(err) return reject(err);
-          return resolve(res.text);
-        })
-    });
+    return axios
+      .get(this.url)
+      .then((res) => {
+        return res.data;
+      });
   }
 
   parseHtml(html){

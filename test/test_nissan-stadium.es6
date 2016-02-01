@@ -21,7 +21,9 @@ describe("crawler NissanStadium", function(){
         .getMajorEvents()
         .then((events) => {
           assert(events instanceof Array);
-          assert(events[0] instanceof Event);
+          for(let event of events){
+            assert(event instanceof Event);
+          }
         });
     });
 

@@ -2,14 +2,14 @@
 "use strict";
 
 import "./test_helper";
-import assert from "assert";
+import {assert} from "chai";
 import arena from "../src/yokohama-arena";
 import Event from "../src/event";
 
 describe("crawler YokohamaArena", function(){
 
   it("should have method \"getMajorEvents\"", function(){
-    assert.equal(typeof arena["getMajorEvents"], "function");
+    assert.isFunction(arena.getMajorEvents);
   });
 
   describe("method \"getMajorEvent\"", function(){
@@ -19,9 +19,9 @@ describe("crawler YokohamaArena", function(){
       return arena
         .getMajorEvents()
         .then((events) => {
-          assert(events instanceof Array);
+          assert.isArray(events);
           for(let event of events){
-            assert(event instanceof Event);
+            assert.innstanceOf(event, Event);
           }
         });
 

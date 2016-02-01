@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^4.1.6",
+    "chai": "^3.5.0",
     "chokidar-cli": "^1.2.0",
     "eslint": "^1.10.3",
     "eslint-plugin-if-in-test": "^0.1.2",

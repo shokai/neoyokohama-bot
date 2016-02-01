@@ -2,7 +2,7 @@
 "use strict";
 
 import "./test_helper";
-import assert from "assert";
+import {assert} from "chai";
 import nissan from "../src/nissan-stadium";
 import Event from "../src/event";
 
@@ -10,7 +10,7 @@ import Event from "../src/event";
 describe("crawler NissanStadium", function(){
 
   it("should have method \"getMajorEvents\"", function(){
-    assert.equal(typeof nissan["getMajorEvents"], "function");
+    assert.isFunction(nissan.getMajorEvents);
   });
 
   describe("method \"getMajorEvents\"", function(){
@@ -20,9 +20,9 @@ describe("crawler NissanStadium", function(){
       return nissan
         .getMajorEvents()
         .then((events) => {
-          assert(events instanceof Array);
+          assert.isArray(events);
           for(let event of events){
-            assert(event instanceof Event);
+            assert.instanceOf(event, Event);
           }
         });
     });

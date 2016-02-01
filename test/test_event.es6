@@ -2,7 +2,7 @@
 "use strict";
 
 import "./test_helper";
-import assert from "assert";
+import {assert} from "chai";
 import Event from "../src/event";
 import "../src/util";
 

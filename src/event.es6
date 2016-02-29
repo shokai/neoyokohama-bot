@@ -1,5 +1,7 @@
 export default class Event{
   constructor(params){
+    this.title = "";
+    this.where = "";
     this.date = new Date();
     this.note = "";
     this.set(params);

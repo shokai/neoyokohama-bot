@@ -39,7 +39,7 @@ module.exports.handler = function(_event, _context){
       let msgs = [ `本日のイベントは` ];
       msgs = msgs.concat(
         events_today.map((event) => {
-          let text = `${event.where} ${event.title}`;
+          let text = `${event.where} ${event.title}`.trim();
           if(event.note) text += " " + event.note;
           return text;
         })

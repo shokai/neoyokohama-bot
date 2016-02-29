@@ -1,4 +1,4 @@
-"use strict";
+/* global Promise */
 
 require("dotenv").load({silent: true});
 const debug = require("debug")("bot:twitter-client");

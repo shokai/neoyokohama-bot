@@ -1,5 +1,3 @@
-"use strict";
-
 import co from "co";
 import axios from "axios";
 import cheerio from "cheerio";
@@ -48,13 +46,15 @@ class NissanStadium{
     var date, title;
     tds.each((i, el) => {
       switch(i % 4){
-      case 0:
+      case 0: {
         date = ($(el).text() || date) - 0;
         break;
-      case 2:
+      }
+      case 2: {
         title = $(el).text().trim() || null;
         break;
-      case 3:
+      }
+      case 3: {
         let where = $(el).text().trim() || null;
         if(title){
           let event = new Event({
@@ -67,6 +67,7 @@ class NissanStadium{
           title = null;
         }
         break;
+      }
       }
     });
     return events;

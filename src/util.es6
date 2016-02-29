@@ -1,4 +1,4 @@
-"use strict";
+/* global Promise */
 
 Date.prototype.isToday = function(){
   const today = new Date();

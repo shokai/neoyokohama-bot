@@ -1,5 +1,4 @@
 /* global it describe */
-"use strict";
 
 import "./test_helper";
 import {assert} from "chai";

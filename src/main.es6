@@ -1,5 +1,3 @@
-"use strict";
-
 import "babel-polyfill";
 import "date-utils";
 const debug = require("debug")("bot");

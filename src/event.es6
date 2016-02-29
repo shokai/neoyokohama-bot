@@ -1,5 +1,3 @@
-"use strict";
-
 export default class Event{
   constructor(params){
     this.date = new Date();

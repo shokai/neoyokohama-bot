@@ -1,5 +1,3 @@
-"use strict";
-
 import co from "co";
 import axios from "axios";
 import cheerio from "cheerio";
@@ -45,26 +43,29 @@ class YokohamaArena{
     var event;
     tds.each((i, el) => {
       switch(i % 6){
-      case 0:
+      case 0: {
         event = null;
         const date = parseInt($(el).text());
         if(!date) break;
         event = new Event();
         event.date = new Date(year, month - 1, date);
         break;
-      case 1:
+      }
+      case 1: {
         if(!event) break;
         const title = $(el).text().trim();
         if(!title) break;
         event.set({title: title, where: "横浜アリーナ"});
         break;
-      case 2:
+      }
+      case 2: {
         if(!event) break;
         const openAt = $(el).html().trim().replace(/<br>/g, " ");
         if(!openAt) break;
         event.note += `開場${openAt}`
         break;
-      case 3:
+      }
+      case 3: {
         if(!event) break;
         const startAt = $(el).html().trim().replace(/<br>/g, " ");
         if(startAt){
@@ -74,6 +75,7 @@ class YokohamaArena{
         events.push(event);
         debug(event);
         break;
+      }
       }
     });
     return events;

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "neoyokohama bot",
   "engines": {
-    "node": ">= 5.2.0",
+    "node": "5.x",
     "npm": "3.x"
   },
   "main": "index.js",

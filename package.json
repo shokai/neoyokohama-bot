@@ -33,7 +33,7 @@
     "debug": "^2.2.0",
     "dotenv": "^2.0.0",
     "twitter": "^1.2.5",
-    "weather-yahoo-jp": "^0.3.0"
+    "weather-yahoo-jp": "^0.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.6",

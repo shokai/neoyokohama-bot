@@ -1,4 +1,3 @@
-import co from "co";
 import axios from "axios";
 import cheerio from "cheerio";
 import Event from "./event";
@@ -10,27 +9,19 @@ class NissanStadium{
     this.url = "http://www.nissan-stadium.jp/calendar/index.php";
   }
 
-  getEvents(){
-    return co.wrap(function *(){
-      const html = yield this.getHtml();
-      return this.parseHtml(html);
-    }).call(this);
+  async getEvents(){
+    const html = await this.getHtml();
+    return this.parseHtml(html);
   }
 
-  getMajorEvents(){
-    return co.wrap(function *(){
-      const events = yield this.getEvents();
-      return events.filter((i) => { return /(スタジアム|競技場)/.test(i.where) });
-    }).call(this);
+  async getMajorEvents(){
+    const events = await this.getEvents();
+    return events.filter((i) => { return /(スタジアム|競技場)/.test(i.where) });
   }
 
-  getHtml(){
+  async getHtml(){
     debug(`get ${this.url}`);
-    return axios
-      .get(this.url)
-      .then((res) => {
-        return res.data;
-      });
+    return (await axios.get(this.url)).data;
   }
 
   parseHtml(html){
@@ -79,9 +70,9 @@ export default new NissanStadium;
 
 if(process.argv[1] === __filename){
   const nissan = new NissanStadium();
-  co(function *(){
-    console.log(yield nissan.getEvents());
-  }).catch((err) => {
-    console.error(err.stack);
+  (async function(){
+    console.log(await nissan.getEvents());
+  })().catch((err) => {
+    console.error(err.stack || err);
   });
 }

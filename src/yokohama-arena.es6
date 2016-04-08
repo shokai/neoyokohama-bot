@@ -1,4 +1,3 @@
-import co from "co";
 import axios from "axios";
 import cheerio from "cheerio";
 import Event from "./event";
@@ -10,28 +9,19 @@ class YokohamaArena{
     this.url = "http://www.yokohama-arena.co.jp/event/"
   }
 
-  getEvents(){
-    return co.wrap(function *(){
-      const html = yield this.getHtml();
-      const events = this.parseHtml(html);
-      return events;
-    }).call(this);
+  async getEvents(){
+    const html = await this.getHtml();
+    return this.parseHtml(html);
   }
 
-  getMajorEvents(){
-    return co.wrap(function *(){
-      const events = yield this.getEvents();
-      return events.filter((i) => { return !(/設営日/.test(i.title)) });
-    }).call(this);
+  async getMajorEvents(){
+    const events = await this.getEvents();
+    return events.filter((i) => { return !(/設営日/.test(i.title)) });
   }
 
-  getHtml(){
+  async getHtml(){
     debug(`get ${this.url}`);
-    return axios
-      .get(this.url)
-      .then((res) => {
-        return res.data;
-      });
+    return (await axios.get(this.url)).data;
   }
 
   parseHtml(html){
@@ -87,9 +77,9 @@ export default new YokohamaArena;
 
 if(process.argv[1] === __filename){
   const arena = new YokohamaArena();
-  co(function *(){
-    console.log(yield arena.getMajorEvents());
-  }).catch((err) => {
+  (async function(){
+    console.log(await arena.getMajorEvents());
+  })().catch((err) => {
     console.error(err.stack || err)
   });
 }

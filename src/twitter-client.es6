@@ -2,7 +2,6 @@
 
 require("dotenv").load({silent: true});
 const debug = require("debug")("bot:twitter-client");
-import co from "co";
 import Twitter from "twitter";
 
 const client = new Twitter({
@@ -53,25 +52,23 @@ export default {
     });
   },
 
-  searchCongestion: function(word){
+  searchCongestion: async function(word){
     debug(`search congestion: ${word}`);
-    return co.wrap(function *(){
-      const tweets = yield this.search({
-        q: word,
-        count: 100,
-        include_entities: false
-      });
-      const now = new Date();
-      const congestion = tweets.statuses.filter((tw) => {
-        for(let ignore of ignoreUsers){
-          if(ignore.test(tw.user.screen_name)) return false;
-          if(ignore.test(tw.user.name)) return false;
-        }
-        return (now - Date.parse(tw.created_at))/1000 < 60*60;
-      }).length;
-      debug(`congestion: ${congestion}`);
-      return congestion;
-    }).call(this);
+    const tweets = await this.search({
+      q: word,
+      count: 100,
+      include_entities: false
+    });
+    const now = new Date();
+    const congestion = tweets.statuses.filter((tw) => {
+      for(let ignore of ignoreUsers){
+        if(ignore.test(tw.user.screen_name)) return false;
+        if(ignore.test(tw.user.name)) return false;
+      }
+      return (now - Date.parse(tw.created_at))/1000 < 60*60;
+    }).length;
+    debug(`congestion: ${congestion}`);
+    return congestion;
   }
 
 }

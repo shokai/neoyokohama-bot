@@ -1,7 +1,8 @@
+/* global Promise */
+
 import "babel-polyfill";
 import "date-utils";
 const debug = require("debug")("bot");
-import co from "co";
 import {forecast} from "weather-yahoo-jp";
 
 import "./util";
@@ -10,16 +11,16 @@ import nissan from "./nissan-stadium";
 import twitterClient from "./twitter-client";
 
 module.exports.handler = function(_event, _context){
-  co(function *(){
-    const data = yield {
+  (async function(){
+    const data = {
       events: {
-        arena: arena.getMajorEvents(),
-        nissan: nissan.getEvents()
+        arena: await arena.getMajorEvents(),
+        nissan: await nissan.getEvents()
       },
       twitter: {
-        congestion: twitterClient.searchCongestion("新横浜")
+        congestion: await twitterClient.searchCongestion("新横浜")
       },
-      forecast: forecast.get("横浜")
+      forecast: await forecast.get("横浜")
     };
     const events_today = [];
     for(let where in data.events){
@@ -49,14 +50,16 @@ module.exports.handler = function(_event, _context){
     tweetText += `\n予想混雑度 ${data.twitter.congestion}`
 
     debug(tweetText);
-    const res = yield tweetText.split140chars().map((status) => {
-      return twitterClient.update({status: status});
-    });
+    const res = await Promise.all(
+      tweetText.split140chars().map((status) => {
+        return twitterClient.update({status: status});
+      })
+    );
 
     console.log(res);
 
     if(_context) _context.done(null, "done");
-  }).catch((err) => {
+  })().catch((err) => {
     console.error(err.stack || err);
     if(_context) _context.fail('failed');
   });

@@ -28,6 +28,7 @@ class YokohamaArena{
     const $ = cheerio.load(html, {decodeEntities: false});
     const year = parseInt($("#event-header .year").eq(0).text());
     const month = parseInt($("#event-header .month").eq(0).text());
+    if(!year && !month) throw new Error("cannot get Year and Month");
     const tds = $("table#event-cal td");
     const events = [];
     var event;

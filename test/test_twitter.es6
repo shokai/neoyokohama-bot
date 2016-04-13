@@ -20,13 +20,10 @@ describe("Twitter Client", function(){
 
   describe("method \"searchCongestion\"", function(){
 
-    it("should return number", function(){
+    it("should return number", async function(){
       this.timeout(10000);
-      return twitter
-        .searchCongestion("新横浜")
-        .then((congestion) => {
-          assert.isNumber(congestion);
-        });
+      const congestion = await twitter.searchCongestion("新横浜");
+      assert.isNumber(congestion);
     });
 
   });

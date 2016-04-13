@@ -14,16 +14,13 @@ describe("crawler NissanStadium", function(){
 
   describe("method \"getMajorEvents\"", function(){
 
-    it("should return Event Array", function(){
+    it("should return Event Array", async () => {
       this.timeout(10000);
-      return nissan
-        .getMajorEvents()
-        .then((events) => {
-          assert.isArray(events);
-          for(let event of events){
-            assert.instanceOf(event, Event);
-          }
-        });
+      const events = await nissan.getMajorEvents();
+      assert.isArray(events);
+      for(let event of events){
+        assert.instanceOf(event, Event);
+      }
     });
 
   });

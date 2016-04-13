@@ -13,17 +13,13 @@ describe("crawler YokohamaArena", function(){
 
   describe("method \"getMajorEvent\"", function(){
 
-    it("should return Event Array", function(){
+    it("should return Event Array", async () => {
       this.timeout(10000);
-      return arena
-        .getMajorEvents()
-        .then((events) => {
-          assert.isArray(events);
-          for(let event of events){
-            assert.innstanceOf(event, Event);
-          }
-        });
-
+      const events = await arena.getMajorEvents()
+      assert.isArray(events);
+      for(let event of events){
+        assert.innstanceOf(event, Event);
+      }
     });
   });
 

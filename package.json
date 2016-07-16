@@ -9,12 +9,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node run.js",
-    "mocha": "mocha test/*.js",
-    "eslint": "eslint *.es6 src/*.es6 test/*.es6",
+    "mocha": "mocha 'test/**.js'",
+    "eslint": "eslint '*.js' '{src,test}/{*,**}.js'",
     "test": "npm run eslint && npm run mocha",
     "build": "babel src/ --out-dir dist/ --source-maps inline",
-    "watch": "parallelshell 'npm run build -- --watch' 'chokidar \"(src|test)/*.es6\" -c \"npm run eslint\"'",
-    "zip": "rm bundle.zip; zip -r bundle.zip index.js .env dist/ node_modules/"
+    "watch": "parallelshell 'npm run build -- --watch' 'chokidar \"(src|test)/*.js\" -c \"npm run eslint\"'",
+    "zip": "rm bundle.zip; zip -r bundle.zip index.js .env dist/ node_modules/",
+    "clean": "rm -rf dist/"
   },
   "keywords": [
     "bot"

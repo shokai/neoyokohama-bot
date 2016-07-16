@@ -18,7 +18,7 @@ describe("crawler YokohamaArena", function(){
       const events = await arena.getMajorEvents()
       assert.isArray(events);
       for(let event of events){
-        assert.innstanceOf(event, Event);
+        assert.instanceOf(event, Event);
       }
     });
   });

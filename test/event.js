@@ -1,6 +1,6 @@
 /* global it describe */
 
-import "./test_helper";
+import "./helper";
 import {assert} from "chai";
 import Event from "../src/event";
 import "../src/util";

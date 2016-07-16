@@ -1,6 +1,6 @@
 /* global it describe */
 
-import "./test_helper";
+import "./helper";
 import {assert} from "chai";
 import nissan from "../src/nissan-stadium";
 import Event from "../src/event";

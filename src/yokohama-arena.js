@@ -6,7 +6,7 @@ const debug = require("debug")("bot:yokohama-arena");
 class YokohamaArena{
 
   constructor(){
-    this.url = "http://www.yokohama-arena.co.jp/event/"
+    this.url = "https://www.yokohama-arena.co.jp"
   }
 
   async getEvents(){
@@ -24,54 +24,28 @@ class YokohamaArena{
     return (await axios.get(this.url)).data;
   }
 
-  parseHtml(html){
-    const $ = cheerio.load(html, {decodeEntities: false});
-    const year = parseInt($("#event-header .year").eq(0).text());
-    const month = parseInt($("#event-header .month").eq(0).text());
-    if(!year && !month) throw new Error("cannot get Year and Month");
-    const tds = $("table#event-cal td");
-    const events = [];
-    var event;
-    tds.each((i, el) => {
-      switch(i % 6){
-      case 0: {
-        event = null;
-        const date = parseInt($(el).text());
-        if(!date) break;
-        event = new Event();
-        event.date = new Date(year, month - 1, date);
-        break;
-      }
-      case 1: {
-        if(!event) break;
-        const title = $(el).text().trim();
-        if(!title) break;
-        event.set({title: title, where: "横浜アリーナ"});
-        break;
-      }
-      case 2: {
-        if(!event) break;
-        const openAt = $(el).html().trim().replace(/<br>/g, " ");
-        if(!openAt) break;
-        event.note += `開場${openAt}`
-        break;
-      }
-      case 3: {
-        if(!event) break;
-        const startAt = $(el).html().trim().replace(/<br>/g, " ");
-        if(startAt){
-          event.note += ` 開演${startAt}`
-        }
-        if(!event.title) break;
-        events.push(event);
-        debug(event);
-        break;
-      }
-      }
-    });
+  parseHtml (html) {
+    const $ = cheerio.load(html);
+    const lis = $('.event_scheduleArea li');
+    const events = []
+    lis.each((i, el) => {
+      let event = new Event()
+      let $ = cheerio.load(el);
+      event.title = $('strong').text().trim();
+      if (!event.title) throw new Error('cannot get title');
+      event.where = '横浜アリーナ';
+      let [, year, month, date] = $('.date-display-single').text().match(/(\d{4})\.(\d{2})\.(\d{2})/) || [];
+      if (!year || !month || !date) throw new Error('cannot get Date');
+      event.date = new Date(year, month - 1, date);
+      let [, openAt] = $('p').text().match(/開場：([^\s]+)/m) || [];
+      if (openAt) event.note += `開場${openAt}`
+      let [, startAt] = $('p').text().match(/開演：([^\s]+)/m) || [];
+      if (startAt) event.note += ` 開演${startAt}`
+      events.push(event);
+      debug(event);
+    })
     return events;
   }
-
 }
 
 export default new YokohamaArena;

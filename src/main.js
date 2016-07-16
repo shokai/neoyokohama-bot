@@ -1,5 +1,3 @@
-/* global Promise */
-
 import "babel-polyfill";
 import "date-utils";
 const debug = require("debug")("bot");

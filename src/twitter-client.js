@@ -1,5 +1,3 @@
-/* global Promise */
-
 require("dotenv").load({silent: true});
 const debug = require("debug")("bot:twitter-client");
 import Twitter from "twitter";

@@ -1,5 +1,3 @@
-/* global Promise */
-
 Date.prototype.isToday = function(){
   const today = new Date();
   return this.getYear() === today.getYear() &&

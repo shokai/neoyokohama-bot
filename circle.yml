@@ -3,7 +3,8 @@ machine:
     version: 4.3
 test:
   override:
-    - npm run test
+    - npm run mocha
+    - npm run eslint
     - npm run build
     - npm run zip
     - DRY=true npm start

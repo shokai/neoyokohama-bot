@@ -14,7 +14,7 @@ describe("crawler NissanStadium", function(){
 
   describe("method \"getMajorEvents\"", function(){
 
-    it("should return Event Array", async () => {
+    it("should return Event Array", async function () {
       this.timeout(10000);
       const events = await nissan.getMajorEvents();
       assert.isArray(events);

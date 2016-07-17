@@ -13,7 +13,7 @@ describe("crawler YokohamaArena", function(){
 
   describe("method \"getMajorEvent\"", function(){
 
-    it("should return Event Array", async () => {
+    it("should return Event Array", async function () {
       this.timeout(10000);
       const events = await arena.getMajorEvents()
       assert.isArray(events);

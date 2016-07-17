@@ -13,7 +13,7 @@
     "eslint": "eslint '*.js' '{src,test}/{*,**}.js'",
     "test": "npm run mocha && npm run eslint",
     "build": "babel src/ --out-dir dist/ --source-maps inline",
-    "watch": "parallelshell 'npm run build -- --watch' 'chokidar \"(src|test)/*.js\" -c \"npm run eslint\"'",
+    "watch": "parallelshell 'npm run build -- --watch' 'chokidar \"(src|test)/*.js\" -c \"npm run eslint\" --initial'",
     "zip": "rm bundle.zip; zip -r bundle.zip index.js .env dist/ node_modules/",
     "clean": "rm -rf dist/"
   },

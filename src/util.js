@@ -21,12 +21,4 @@ String.prototype.split140chars = function(){
   return results.reverse();
 };
 
-export default {
-  delay: function(msec){
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, msec);
-    });
-  }
-}
+export const delay = (msec) => new Promise((resolve) => setTimeout(resolve, msec))

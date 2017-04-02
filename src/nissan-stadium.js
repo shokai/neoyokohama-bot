@@ -26,7 +26,7 @@ class NissanStadium{
 
   parseHtml(html){
     const $ = cheerio.load(html);
-    const m = $("#areatitle01 h3").text().match(/(\d{4})年(\d?\d)月/);
+    const m = $("h3.mds_red_bg").text().match(/(\d{4})年(\d?\d)月/);
     if(!m){
       throw new Error("cannot parse Year and Month");
     }
